@@ -1,9 +1,11 @@
-import React from 'react'
+import Banner from '../components/Banner';
+import ProductType from '../components/ProductType';
 
 const Home = () => {
   return (
     <div>
-        Home Page
+      <Banner/>
+      <ProductType />
     </div>
   )
 }

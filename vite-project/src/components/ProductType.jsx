@@ -1,13 +1,42 @@
-import React from "react";
+import axios from "axios";
+import { useState, useEffect } from "react";
+import Spinner from "./Spinner";
 
 const ProductType = () => {
-  let items = [1, 2, 3, 4, 5, 1, 2, 3, 4, 5, 1, 2, 3, 4, 5, 1, 2, 3, 4, 5];
+  const [products, setProducts] = useState([]);
+  const [loading, setLoading] = useState(false);
+
+  useEffect(()=> {
+    setLoading(true);
+    axios.get('https://dummyjson.com/products?limit=20')
+      .then((response)=> {
+        setProducts(response.data.products);
+        console.log("response.data.products");
+        setLoading(false);
+      })
+      .catch((error) => {
+        // setError(error.message);
+        setLoading(false);
+        console.error("Error fetching users:", error);
+      })
+      .finally(() => {
+        setLoading(false);
+      });
+  }, []);
+  
   return (
-    <div className="grid gap-1 grid-rows-2 grid-cols-10 bg-amber-200 m-4">
-      {items.map((item) => (
-        <div className="bg-amber-200 w-1000px h-100px p-5"> {item}</div>
-      ))}
-    </div>
+  <div>
+      {loading ? <Spinner loading={loading}/>:
+        <div className="grid gap-5 grid-rows-2 grid-cols-10 m-4">
+          {products.map((item) => (
+            <div key={item.id}>
+              <img className=" border-gray-300 rounded-2xl bg-[#EDF4FF] p-0" src={item.thumbnail}/>
+              <p className="text-center">{item.category}</p>
+            </div>
+          ))}
+        </div>
+      }
+  </div>
   );
 };
 

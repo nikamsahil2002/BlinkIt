@@ -11,13 +11,11 @@ const ProductType = () => {
     axios.get('https://dummyjson.com/products?limit=20')
       .then((response)=> {
         setProducts(response.data.products);
-        console.log("response.data.products");
         setLoading(false);
       })
       .catch((error) => {
-        // setError(error.message);
         setLoading(false);
-        console.error("Error fetching users:", error);
+        console.error("Error fetching products:", error);
       })
       .finally(() => {
         setLoading(false);
@@ -30,7 +28,7 @@ const ProductType = () => {
         <div className="grid gap-5 grid-rows-2 grid-cols-10 m-4">
           {products.map((item) => (
             <div key={item.id}>
-              <img className=" border-gray-300 rounded-2xl bg-[#EDF4FF] p-0" src={item.thumbnail}/>
+              <img className=" border-gray-300 rounded-2xl bg-[#EDF4FF] w-[100px] h-[100px]" src={item.thumbnail}/>
               <p className="text-center">{item.category}</p>
             </div>
           ))}

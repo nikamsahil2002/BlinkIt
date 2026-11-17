@@ -10,7 +10,7 @@ const Header = () => {
     <header className='h-20 shadow-md fixed top-0 left-0 right-0 z-50 bg-white'>
         <div className='flex justify-around items-center h-full'>
           <div>
-            <img src={logo} alt="Logo" width="150" height="300"/>
+            <img src={logo} alt="Logo" width="150" height="500"/>
           </div>
 
           <div>

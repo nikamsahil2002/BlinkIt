@@ -25,10 +25,10 @@ const ProductType = () => {
   return (
   <div>
       {loading ? <Spinner loading={loading}/>:
-        <div className="grid gap-5 grid-rows-2 grid-cols-10 m-4">
+        <div className="grid gap-5 grid-rows-2 grid-cols-10  m-4">
           {products.map((item) => (
-            <div key={item.id}>
-              <img className=" border-gray-300 rounded-2xl bg-[#EDF4FF] w-[100px] h-[100px]" src={item.thumbnail}/>
+            <div key={item.id} className="flex flex-col items-center">
+              <img className=" border-gray-300 rounded-2xl bg-[#EDF4FF] w-[120px] h-[120px]" src={item.thumbnail}/>
               <p className="text-center">{item.category}</p>
             </div>
           ))}

@@ -9,7 +9,7 @@ let productCategory = {
     'Snacks & Munchies': "snack",
     'Hookah': "c",
     'Mouth fresheners': "fresh",
-    'Cold Drinks & Juices': "drink"
+    'Cold Drinks & Juices': "dri"
 };
 
 
@@ -19,7 +19,7 @@ const ProductList = ({type}) => {
 
     useEffect(() => {
         setLoading(true);
-        axios.get(`https://dummyjson.com/products/search?q=${productCategory[type]}&limit=5`)
+        axios.get(`https://dummyjson.com/products/search?q=${productCategory[type]}&limit=10`)
         .then((response) => {
             setProducts(response.data.products);
             console.log("data", response.data.products, type)
@@ -33,18 +33,33 @@ const ProductList = ({type}) => {
     return (
         <div>
             { loading ? <Spinner loading={loading}/> :
-                <div className='flex align-middle justify-center gap-6 m-2'>
-                {
-                    products.map((item) => {
-                        return (
-                            <div className='shadow-lg rounded-2xl '>
-                                <img src={item.thumbnail}></img>
-                                <div className='text-center font-bold font-["Okra-Medium",_sans-serif]'>{item.title}</div>
-                            </div>
-                        )
-                    })
-                }
-            </div>
+                <div className='
+                    flex align-middle 
+                    justify-start p-2 
+                    gap-6 h-80 
+                    overflow-x-auto 
+                    [&::-webkit-scrollbar]:hidden
+                    [scrollbar-width:none]
+                    [&::scroll-button(left)]:content-["←"]
+                    [&::scroll-button(right)]:content-["→"]
+                    [&::scroll-button(*)]:w-10
+                    [&::scroll-button(*)]:h-10
+                    [&::scroll-button(*)]:shadow-lg
+                    [&::scroll-button(*)]:border
+                    [&::scroll-button(*)]:cursor-pointer'
+                    
+                >
+                        {
+                            products.map((item) => {
+                                return (
+                                    <div className='shadow-lg rounded-2xl object-cover shrink-0 w-60 h-70 p-4'>
+                                        <img src={item.thumbnail} alt={item.title} />
+                                        <div className='text-center font-bold font-["Okra-Medium",_sans-serif]'>{item.title}</div>
+                                    </div>
+                                )
+                            })
+                        }
+                </div>
         }
         </div>
     );
